@@ -1,61 +1,95 @@
-import { type User, type InsertUser, type ContactMessage, type InsertContactMessage } from "@shared/schema";
-import { randomUUID } from "crypto";
+import { db } from "./db";
+import { 
+  users, 
+  contactMessages, 
+  services,
+  portfolioItems,
+  testimonials,
+  type InsertUser, 
+  type InsertContactMessage,
+  type InsertService,
+  type InsertPortfolioItem,
+  type InsertTestimonial,
+} from "@shared/schema";
+import { eq, desc } from "drizzle-orm";
 
 export interface IStorage {
-  getUser(id: string): Promise<User | undefined>;
-  getUserByUsername(username: string): Promise<User | undefined>;
-  createUser(user: InsertUser): Promise<User>;
-  createContactMessage(message: InsertContactMessage): Promise<ContactMessage>;
-  getContactMessages(): Promise<ContactMessage[]>;
+  getUser(id: string): Promise<any>;
+  getUserByUsername(username: string): Promise<any>;
+  createUser(user: InsertUser): Promise<any>;
+  createContactMessage(message: InsertContactMessage): Promise<any>;
+  getContactMessages(): Promise<any[]>;
+  createService(service: InsertService): Promise<any>;
+  getServices(): Promise<any[]>;
+  getServiceBySlug(slug: string): Promise<any>;
+  createPortfolioItem(item: InsertPortfolioItem): Promise<any>;
+  getPortfolioItems(): Promise<any[]>;
+  getPortfolioItem(id: string): Promise<any>;
+  createTestimonial(testimonial: InsertTestimonial): Promise<any>;
+  getTestimonials(): Promise<any[]>;
 }
 
-export class MemStorage implements IStorage {
-  private users: Map<string, User>;
-  private contactMessages: Map<string, ContactMessage>;
-
-  constructor() {
-    this.users = new Map();
-    this.contactMessages = new Map();
+export class DatabaseStorage implements IStorage {
+  async getUser(id: string) {
+    const result = await db.select().from(users).where(eq(users.id, id));
+    return result[0];
   }
 
-  async getUser(id: string): Promise<User | undefined> {
-    return this.users.get(id);
+  async getUserByUsername(username: string) {
+    const result = await db.select().from(users).where(eq(users.username, username));
+    return result[0];
   }
 
-  async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
+  async createUser(insertUser: InsertUser) {
+    const result = await db.insert(users).values(insertUser).returning();
+    return result[0];
   }
 
-  async createUser(insertUser: InsertUser): Promise<User> {
-    const id = randomUUID();
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
-    return user;
+  async createContactMessage(insertMessage: InsertContactMessage) {
+    const result = await db.insert(contactMessages).values(insertMessage).returning();
+    return result[0];
   }
 
-  async createContactMessage(insertMessage: InsertContactMessage): Promise<ContactMessage> {
-    const id = randomUUID();
-    const message: ContactMessage = {
-      id,
-      name: insertMessage.name,
-      email: insertMessage.email,
-      phone: insertMessage.phone ?? null,
-      service: insertMessage.service,
-      budget: insertMessage.budget ?? null,
-      message: insertMessage.message,
-      createdAt: new Date(),
-    };
-    this.contactMessages.set(id, message);
-    return message;
+  async getContactMessages() {
+    return await db.select().from(contactMessages).orderBy(desc(contactMessages.createdAt));
   }
 
-  async getContactMessages(): Promise<ContactMessage[]> {
-    return Array.from(this.contactMessages.values()).sort(
-      (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
-    );
+  async createService(insertService: InsertService) {
+    const result = await db.insert(services).values(insertService).returning();
+    return result[0];
+  }
+
+  async getServices() {
+    return await db.select().from(services);
+  }
+
+  async getServiceBySlug(slug: string) {
+    const result = await db.select().from(services).where(eq(services.slug, slug));
+    return result[0];
+  }
+
+  async createPortfolioItem(insertItem: InsertPortfolioItem) {
+    const result = await db.insert(portfolioItems).values(insertItem).returning();
+    return result[0];
+  }
+
+  async getPortfolioItems() {
+    return await db.select().from(portfolioItems).orderBy(desc(portfolioItems.createdAt));
+  }
+
+  async getPortfolioItem(id: string) {
+    const result = await db.select().from(portfolioItems).where(eq(portfolioItems.id, id));
+    return result[0];
+  }
+
+  async createTestimonial(insertTestimonial: InsertTestimonial) {
+    const result = await db.insert(testimonials).values(insertTestimonial).returning();
+    return result[0];
+  }
+
+  async getTestimonials() {
+    return await db.select().from(testimonials).orderBy(desc(testimonials.createdAt));
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
