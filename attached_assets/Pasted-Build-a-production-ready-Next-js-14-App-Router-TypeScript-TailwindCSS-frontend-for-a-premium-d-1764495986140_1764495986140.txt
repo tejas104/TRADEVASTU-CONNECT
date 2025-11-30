@@ -1,0 +1,318 @@
+Build a production-ready Next.js 14 (App Router) + TypeScript + TailwindCSS frontend for a premium digital agency website called “TRADEVASTU CONNECT”. This is the official product of TRADEVASTU ENTERPRISES LLP. Create only the frontend; no backend calls now. Everything must be modular, reusable, and pixel-perfect.
+
+🎨 DESIGN SYSTEM — RICH GOLD + DEEP EMERALD THEME
+
+Aesthetic style: premium, luxury, minimal, futuristic, alive
+
+Colors:
+
+Primary Gold: #D4AF37
+
+Deep Emerald: #004F3A
+
+Dark Background: #0A0C0F
+
+Card Surface: #111418
+
+Accent Lime Gold: #C0FF4A
+
+Soft White: #F4F4F2
+
+Text Primary: #ECECEC
+
+Text Muted: #A7A7A5
+
+Gradient:
+
+bg-gradient-to-br from-[#D4AF37] via-[#C0FF4A] to-[#004F3A]
+
+
+Typography:
+
+Headings → Poppins 700
+
+Body → Inter 400–500
+
+Components style:
+
+Glass blur
+
+Golden glow borders
+
+Soft shadows
+
+Micro motion
+
+Organic curves
+
+3D hover depth
+
+Parallax layers
+
+⚡ CORE INTERACTION FEATURES (IMPORTANT)
+
+Your website must feel live and animated. Add:
+
+➤ Scroll-based section reveals
+
+Smooth fade-up
+
+Scale-in
+
+Staggered child elements
+
+Triggered via framer-motion
+
+➤ Magnetic hover buttons
+
+Button follows cursor slightly
+
+Glow border on hover
+
+Scale 1.04 interaction
+
+➤ Dynamic service cards
+
+3D tilt
+
+Hover-reveal golden light streak
+
+Motion blur on entry
+
+Content expands on hover
+
+➤ Image reveal on scroll
+
+Lazy load
+
+Fade + vertical parallax
+
+Blur → sharp reveal
+
+Light shimmer overlay
+
+➤ Page transitions
+
+Smooth loading bar
+
+Fade between routes
+
+Slide from bottom on page load
+
+➤ Sticky floating CTA
+
+“Get Quote” pill button
+
+Gold glowing border
+
+Right side of screen
+
+📌 PAGES TO BUILD (FRONTEND ONLY)
+1. Home Page (app/page.tsx)
+
+Sections:
+
+Hero
+
+Fullscreen
+
+Gold/emerald gradient motion background
+
+Animated headline with split-reveal
+
+Subheadline
+
+Two call-to-action buttons
+
+Floating golden particles
+
+Live parallax layers
+
+Trusted By Section
+
+Logos with shimmering hover
+
+Soft fade reveal
+
+Services Preview Section
+
+6 golden service cards
+
+3D hover
+
+Card expands on hover
+
+Live illustrations
+
+Portfolio Preview
+
+Grid
+
+Hover shows overlay case study
+
+Smooth zoom-in
+
+Light streak animation
+
+Process Section
+
+4-step with timeline
+
+Framer slide-up stagger animations
+
+Gold glowing connectors
+
+Testimonials Slider
+
+Auto-play
+
+Dynamic shadows
+
+Cards swipeable
+
+Glass blur
+
+Footer
+
+Dark luxurious
+
+Gold accents
+
+Clean minimal layout
+
+2. Services List Page (app/services/page.tsx)
+
+Grid of service cards
+
+Hover shine effect
+
+Expandable card animations
+
+Elegant iconography
+
+3. Individual Service Page (app/services/[slug]/page.tsx)
+
+Hero banner
+
+Animated heading
+
+Floating gold line under heading
+
+Sections sliding in
+
+Pricing CTA that glows
+
+4. Portfolio Page (app/portfolio/page.tsx)
+
+Masonry grid
+
+Hover zoom + gold overlay
+
+Smooth entry animations
+
+Category filters (frontend-only UI)
+
+5. Portfolio Details Page (app/portfolio/[slug]/page.tsx)
+
+Large header image with parallax
+
+Smooth fade text section
+
+Golden separators
+
+Image carousel with drag
+
+6. Contact Page (app/contact/page.tsx)
+
+Stylish modern form
+
+Glass UI
+
+Glow border inputs
+
+Animated submit button
+
+Embedded Google Map placeholder
+
+7. About Page (app/about/page.tsx)
+
+Story timeline
+
+Sliding milestone animations
+
+Team section with card expansions
+
+Floating gold dots background
+
+🧩 REUSABLE COMPONENTS TO GENERATE
+
+Create these under /components/ui:
+
+AnimatedText
+
+TiltCard (3D card)
+
+GlowButton (magnetic hover)
+
+SectionReveal (scroll animation)
+
+ParallaxContainer
+
+FloatingParticles
+
+GlassCard
+
+TestimonialSlider
+
+Navbar (animated shrink on scroll)
+
+Footer (premium dark layout)
+
+PageTransitionWrapper
+
+AnimatedImage (reveal on scroll)
+
+📁 PROJECT STRUCTURE
+app/
+  layout.tsx
+  page.tsx
+  services/
+    page.tsx
+    [slug]/
+      page.tsx
+  portfolio/
+    page.tsx
+    [slug]/
+      page.tsx
+  contact/page.tsx
+  about/page.tsx
+
+components/
+  ui/
+  layout/
+  animations/
+
+styles/
+  globals.css
+
+🟩 VEO-3 INSTRUCTIONS
+
+Generate the complete frontend codebase with:
+
+Next.js 14
+
+App Router
+
+TypeScript
+
+TailwindCSS
+
+Framer-motion animations
+
+Stunning golden-emerald aesthetic
+
+Live microinteractions
+
+All pages and components
+
+Professional, premium, award-winning design
