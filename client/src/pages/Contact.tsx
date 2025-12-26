@@ -61,9 +61,10 @@ const contactInfo = [
   {
     icon: <MapPin className="w-6 h-6" />,
     title: "Visit Us",
-    value: "Mumbai, India",
-    href: "#",
-  },
+    value: "Pune, Maharashtra, India",
+    href: "https://www.google.com/maps/place/Pune,+Maharashtra",
+  }
+  ,
   {
     icon: <Clock className="w-6 h-6" />,
     title: "Working Hours",
@@ -200,7 +201,7 @@ export default function Contact() {
                                   <FormControl>
                                     <Input
                                       {...field}
-                                      placeholder="John Doe"
+                                      placeholder=""
                                       className="bg-dark-surface border-gold/20 focus:border-gold/50 h-12"
                                       data-testid="input-name"
                                     />
@@ -220,7 +221,7 @@ export default function Contact() {
                                     <Input
                                       {...field}
                                       type="email"
-                                      placeholder="john@example.com"
+                                      placeholder=""
                                       className="bg-dark-surface border-gold/20 focus:border-gold/50 h-12"
                                       data-testid="input-email"
                                     />
@@ -241,7 +242,7 @@ export default function Contact() {
                                   <FormControl>
                                     <Input
                                       {...field}
-                                      placeholder="+91 98765 43210"
+                                      placeholder=""
                                       className="bg-dark-surface border-gold/20 focus:border-gold/50 h-12"
                                       data-testid="input-phone"
                                     />
@@ -381,19 +382,42 @@ export default function Contact() {
               </SectionReveal>
 
               <SectionReveal delay={0.4} className="mt-8">
-                <div className="rounded-lg overflow-hidden border border-gold/10">
-                  <div className="aspect-[4/3] bg-dark-surface flex items-center justify-center">
-                    <div className="text-center p-6">
-                      <MapPin className="w-12 h-12 text-gold/50 mx-auto mb-4" />
-                      <p className="text-muted-foreground text-sm">
-                        Map integration coming soon.<br />
-                        TRADEVASTU ENTERPRISES LLP<br />
-                        Premium Business Hub, Mumbai
+                <a
+                  href="https://www.google.com/maps/place/Pune,+Maharashtra"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block rounded-lg overflow-hidden border border-gold/10 hover:border-gold/40 transition-all group"
+                >
+                  <div className="aspect-[4/3] relative">
+                    {/* Google Maps Embed */}
+                    <iframe
+                      title="TradeVastu Enterprises Location"
+                      src="https://www.google.com/maps?q=Pune,Maharashtra&output=embed"
+                      className="w-full h-full grayscale-[20%] group-hover:grayscale-0 transition-all duration-500"
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                    />
+
+                    {/* Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-dark-bg/70 via-transparent to-transparent pointer-events-none" />
+
+                    {/* Text Overlay */}
+                    <div className="absolute bottom-0 left-0 right-0 p-4 text-center">
+                      <MapPin className="w-6 h-6 text-gold mx-auto mb-1" />
+                      <p className="text-sm font-medium text-foreground">
+                        TRADEVASTU ENTERPRISES LLP
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        Pune, Maharashtra, India
+                      </p>
+                      <p className="text-[11px] text-gold mt-1">
+                        Click to open in Google Maps →
                       </p>
                     </div>
                   </div>
-                </div>
+                </a>
               </SectionReveal>
+
             </div>
           </div>
         </div>
