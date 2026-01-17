@@ -5,5 +5,10 @@
   },
   "deploy": {
     "startCommand": "npm run start"
+  },
+  "nixpacks": {
+    "setup": {
+      "nixPkgs": ["nodejs", "npm"]
+    }
   }
 }

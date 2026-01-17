@@ -32,7 +32,7 @@ export async function initDB() {
     const client = await pool.connect();
     await client.query("SELECT 1");
     client.release();
-    console.log("✅ Connected to Supabase PostgreSQL");
+    console.log("✅ Connected to PostgreSQL");
   } catch (err) {
     console.error("❌ Supabase PostgreSQL connection failed:", err);
     throw err;
