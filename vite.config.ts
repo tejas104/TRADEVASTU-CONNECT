@@ -17,6 +17,15 @@ export default defineConfig({
   build: {
     outDir: path.resolve(__dirname, "dist"),
     emptyOutDir: true,
+    rollupOptions: {
+      onwarn(warning, warn) {
+        // Suppress "use client" directive warnings from third-party libraries
+        if (warning.code === 'MODULE_LEVEL_DIRECTIVE' && warning.message.includes('"use client"')) {
+          return;
+        }
+        warn(warning);
+      },
+    },
   },
   server: {
     fs: {
