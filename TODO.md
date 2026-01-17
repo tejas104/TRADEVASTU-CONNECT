@@ -1,7 +1,7 @@
 # Production Readiness Tasks
 
 ## Backend Changes
-- [x] Update server/db.ts: Use Supabase Postgres connection string with SSL enabled
+- [x] Update server/db.ts: Use Railway Postgres connection string with SSL enabled
 - [x] Update server/index.ts: Remove static file serving, update CORS for dev/prod, add /health endpoint, update logging
 - [x] Update server/routes.ts: Add /health endpoint
 - [x] Remove server/static.ts and server/vite.ts

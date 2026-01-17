@@ -17,10 +17,10 @@ if (!databaseUrl) {
 
 export const pool = new Pool({
   connectionString: databaseUrl,
-  ssl: { rejectUnauthorized: false },
+  ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
   max: 5,
   idleTimeoutMillis: 30_000,
-  connectionTimeoutMillis: 10_000,
+  connectionTimeoutMillis: 20_000,
 });
 
 pool.on("error", (err) => {
@@ -34,7 +34,7 @@ export async function initDB() {
     client.release();
     console.log("✅ Connected to PostgreSQL");
   } catch (err) {
-    console.error("❌ Supabase PostgreSQL connection failed:", err);
+    console.error("❌ PostgreSQL connection failed:", err);
     throw err;
   }
 }

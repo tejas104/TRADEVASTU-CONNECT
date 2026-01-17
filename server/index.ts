@@ -37,7 +37,7 @@ app.get("/health", (req, res) => {
     /* -------------------- START SERVER -------------------- */
     const PORT = Number(process.env.PORT) || 5000;
     server.listen(PORT, () => {
-      console.log(`✅ Connected to Supabase PostgreSQL`);
+      console.log(`✅ Connected to PostgreSQL`);
       console.log(`🚀 Backend running on port ${PORT}`);
     });
 
