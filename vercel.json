@@ -3,7 +3,7 @@
     { "source": "/(.*)", "destination": "/" }
   ],
   "env": {
-    "VITE_API_BASE_URL": "https://your-backend-url"
+    "VITE_API_BASE_URL": "https://tradevastu-connect-production.up.railway.app"
   }
 }
   

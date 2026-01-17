@@ -1,16 +1,15 @@
-# Contact Form Fix TODO
+# Fix API 500 Error on Railway Deployment
 
-## Completed
-- [x] Identify issue: Contact form sends 'service' and 'budget' fields, but schema only has 'name', 'email', 'phone', 'message'
-- [x] Update shared/schema.ts to add 'service' and 'budget' fields to contactMessages table
+## Issue
+- GET /api/contact returns 500 "Failed to fetch messages"
+- Root cause: contact_messages table doesn't exist in production database
+- Database schema not pushed during deployment
 
-## Pending
-- [ ] Generate database migration for schema changes
-- [ ] Apply migration to production Railway database
-- [ ] Redeploy application to Railway
-- [ ] Test contact form submission on live website
+## Changes Made
+- [x] Added `db:push:prod` script in package.json
+- [x] Modified railway.json buildCommand to run `npm run db:push:prod && npm run build:server`
 
-## Notes
-- Migration generation failed locally due to missing DATABASE_URL in .env.local
-- Production DATABASE_URL is set in Railway environment variables
-- Redeployment should apply schema changes automatically via Drizzle
+## Next Steps
+- [ ] Commit and push changes to trigger Railway redeploy
+- [ ] Test GET https://tradevastu-connect-production.up.railway.app/api/contact after redeploy
+- [ ] Verify response is 200 with empty array or contact messages

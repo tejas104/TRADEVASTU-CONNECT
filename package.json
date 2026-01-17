@@ -11,7 +11,8 @@
     "start": "cross-env NODE_ENV=production node dist/index.cjs",
     "start:api": "cross-env NODE_ENV=production node dist/index.cjs",
     "check": "tsc",
-    "db:push": "cross-env NODE_ENV=development drizzle-kit push"
+    "db:push": "cross-env NODE_ENV=development drizzle-kit push",
+    "db:push:prod": "cross-env NODE_ENV=production drizzle-kit push"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
