@@ -10,6 +10,6 @@
 - [x] Modified railway.json buildCommand to run `npm run db:push:prod && npm run build:server`
 
 ## Next Steps
-- [ ] Commit and push changes to trigger Railway redeploy
+- [x] Commit and push changes to trigger Railway redeploy
 - [ ] Test GET https://tradevastu-connect-production.up.railway.app/api/contact after redeploy
 - [ ] Verify response is 200 with empty array or contact messages
