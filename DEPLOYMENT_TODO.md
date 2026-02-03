@@ -1,13 +1,23 @@
-# Deployment Checklist
+# Deployment Checklist for MongoDB Atlas
 
-## Database & Backend (Railway)
-- [x] Database schema pushed to Railway PostgreSQL
+## Database Setup (MongoDB Atlas)
+- [ ] Create MongoDB Atlas cluster at https://cloud.mongodb.com
+- [ ] Create database user with read/write permissions
+- [ ] Whitelist IP addresses (0.0.0.0/0 for development, specific IPs for production)
+- [ ] Get connection string from Atlas dashboard (Connect > Connect your application)
+- [ ] Update environment variables with Atlas connection string
+
+## Backend Deployment (Railway)
 - [ ] Deploy backend to Railway:
-  - Connect your GitHub repo to Railway: In Railway dashboard, select the 'TRADEVASTU-CONNECT' service, go to Settings > GitHub, and connect your GitHub repository.
-  - Push your latest code to GitHub to trigger automatic deployment on Railway.
-- [ ] Get the Railway backend URL (e.g., https://your-app-name.up.railway.app) from the Railway service dashboard after deployment.
+  - Connect your GitHub repo to Railway
+  - Set environment variables in Railway dashboard:
+    - `MONGODB_URL`: Your Atlas connection string
+    - `DB_NAME`: Your database name
+    - `NODE_ENV`: production
+    - `PORT`: 5001 (or Railway's default)
+- [ ] Get the Railway backend URL from Railway service dashboard
 
-## Frontend (Vercel)
+## Frontend Deployment (Vercel)
 - [ ] Update `vercel.json` with the Railway backend URL:
   ```json
   {
@@ -19,6 +29,7 @@
 - [ ] Deploy frontend to Vercel (connect Git repo or use Vercel CLI)
 
 ## Post-Deployment
+- [ ] Test MongoDB Atlas connection
 - [ ] Test API endpoints from frontend
-- [ ] Verify contact form submissions work
-- [ ] Check database connections
+- [ ] Verify contact form submissions work with Atlas
+- [ ] Check database operations (create/read contact messages)

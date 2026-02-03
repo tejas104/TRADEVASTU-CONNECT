@@ -1,93 +1,110 @@
-import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, timestamp, integer, boolean } from "drizzle-orm/pg-core";
-import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-export const users = pgTable("users", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  username: text("username").notNull().unique(),
-  password: text("password").notNull(),
-});
+// User Schema
+export interface User {
+  _id?: string;
+  id: string;
+  username: string;
+  password: string;
+}
 
-export const insertUserSchema = createInsertSchema(users).pick({
-  username: true,
-  password: true,
+export const insertUserSchema = z.object({
+  username: z.string().min(1),
+  password: z.string().min(1),
 });
 
 export type InsertUser = z.infer<typeof insertUserSchema>;
-export type User = typeof users.$inferSelect;
 
-export const contactMessages = pgTable("contact_messages", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  name: text("name").notNull(),
-  email: text("email").notNull(),
-  phone: text("phone"),
-  service: text("service"),
-  budget: text("budget"),
-  message: text("message").notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-});
+// Contact Message Schema
+export interface ContactMessage {
+  _id?: string;
+  id: string;
+  name: string;
+  email: string;
+  phone?: string;
+  service?: string;
+  budget?: string;
+  message: string;
+  createdAt: Date;
+}
 
-export const insertContactMessageSchema = createInsertSchema(contactMessages).omit({
-  id: true,
-  createdAt: true,
+export const insertContactMessageSchema = z.object({
+  name: z.string().min(1),
+  email: z.string().email(),
+  phone: z.string().optional(),
+  service: z.string().optional(),
+  budget: z.string().optional(),
+  message: z.string().min(1),
 });
 
 export type InsertContactMessage = z.infer<typeof insertContactMessageSchema>;
-export type ContactMessage = typeof contactMessages.$inferSelect;
 
-export const services = pgTable("services", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  slug: text("slug").notNull().unique(),
-  title: text("title").notNull(),
-  subtitle: text("subtitle").notNull(),
-  description: text("description").notNull(),
-  icon: text("icon").notNull(),
-  features: text("features").array().notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-});
+// Service Schema
+export interface Service {
+  _id?: string;
+  id: string;
+  slug: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  icon: string;
+  features: string[];
+  createdAt: Date;
+}
 
-export const insertServiceSchema = createInsertSchema(services).omit({
-  id: true,
-  createdAt: true,
+export const insertServiceSchema = z.object({
+  slug: z.string().min(1),
+  title: z.string().min(1),
+  subtitle: z.string().min(1),
+  description: z.string().min(1),
+  icon: z.string().min(1),
+  features: z.array(z.string()).min(1),
 });
 
 export type InsertService = z.infer<typeof insertServiceSchema>;
-export type Service = typeof services.$inferSelect;
 
-export const portfolioItems = pgTable("portfolio_items", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  title: text("title").notNull(),
-  category: text("category").notNull(),
-  description: text("description").notNull(),
-  image: text("image").notNull(),
-  tags: text("tags").array().notNull(),
-  featured: boolean("featured").default(false),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-});
+// Portfolio Item Schema
+export interface PortfolioItem {
+  _id?: string;
+  id: string;
+  title: string;
+  category: string;
+  description: string;
+  image: string;
+  tags: string[];
+  featured: boolean;
+  createdAt: Date;
+}
 
-export const insertPortfolioItemSchema = createInsertSchema(portfolioItems).omit({
-  id: true,
-  createdAt: true,
+export const insertPortfolioItemSchema = z.object({
+  title: z.string().min(1),
+  category: z.string().min(1),
+  description: z.string().min(1),
+  image: z.string().min(1),
+  tags: z.array(z.string()).min(1),
+  featured: z.boolean().optional().default(false),
 });
 
 export type InsertPortfolioItem = z.infer<typeof insertPortfolioItemSchema>;
-export type PortfolioItem = typeof portfolioItems.$inferSelect;
 
-export const testimonials = pgTable("testimonials", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  name: text("name").notNull(),
-  role: text("role").notNull(),
-  company: text("company").notNull(),
-  content: text("content").notNull(),
-  featured: boolean("featured").default(false),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-});
+// Testimonial Schema
+export interface Testimonial {
+  _id?: string;
+  id: string;
+  name: string;
+  role: string;
+  company: string;
+  content: string;
+  featured: boolean;
+  createdAt: Date;
+}
 
-export const insertTestimonialSchema = createInsertSchema(testimonials).omit({
-  id: true,
-  createdAt: true,
+export const insertTestimonialSchema = z.object({
+  name: z.string().min(1),
+  role: z.string().min(1),
+  company: z.string().min(1),
+  content: z.string().min(1),
+  featured: z.boolean().optional().default(false),
 });
 
 export type InsertTestimonial = z.infer<typeof insertTestimonialSchema>;
-export type Testimonial = typeof testimonials.$inferSelect;

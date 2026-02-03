@@ -1,10 +1,9 @@
 {
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
-  ],
-  "outputDirectory": "dist",
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
   "env": {
-    "VITE_API_BASE_URL": "https://tradevastu-connect-production.up.railway.app"
+    "MONGODB_URL": "@mongodb_url",
+    "DB_NAME": "tradevastu"
   }
 }
-  

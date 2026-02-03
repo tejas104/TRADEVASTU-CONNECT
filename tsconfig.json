@@ -5,17 +5,52 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["client/src/*"],
-      "@shared/*": ["shared/*"],
-      "@server/*": ["server/*"],
-      "@components/*": ["components/*"]
+      "@/*": [
+        "./*"
+      ],
+      "@shared/*": [
+        "shared/*"
+      ],
+      "@server/*": [
+        "server/*"
+      ],
+      "@components/*": [
+        "components/*"
+      ]
     },
     "outDir": "dist",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "noEmit": true,
+    "incremental": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
-  "include": ["server/**/*", "shared/**/*", "client/**/*"]
+  "include": [
+    "server/**/*",
+    "shared/**/*",
+    "app/**/*",
+    "components/**/*",
+    "lib/**/*",
+    "hooks/**/*",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

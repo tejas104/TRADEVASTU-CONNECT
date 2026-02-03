@@ -2,7 +2,7 @@
 
 ## Prerequisites
 - Node.js 18+ installed
-- PostgreSQL database (local or remote)
+- MongoDB (local installation or MongoDB Compass)
 - Git for cloning the project
 
 ## Step 1: Clone & Install Dependencies
@@ -21,13 +21,15 @@ npm install
 Create a `.env.local` file in the project root with your database credentials:
 
 ```env
-# Database Connection (Choose ONE option below)
+# MongoDB Connection (Choose ONE option below)
 
-# Option A: Local PostgreSQL
-DATABASE_URL="postgresql://username:password@localhost:5432/tradevastu_db"
+# Option A: Local MongoDB
+MONGODB_URL="mongodb://localhost:27017"
+DB_NAME="tradevastu"
 
-# Option B: Remote PostgreSQL (e.g., from Replit)
-# DATABASE_URL="postgresql://user:password@host:port/database_name"
+# Option B: MongoDB Atlas (Production)
+# MONGODB_URL="mongodb+srv://username:password@cluster.mongodb.net/?retryWrites=true&w=majority"
+# DB_NAME="tradevastu"
 
 # Optional: Add these if using custom email service later
 # RESEND_API_KEY="your-api-key"
@@ -38,32 +40,43 @@ Replace `username`, `password`, `localhost`, and `tradevastu_db` with your actua
 
 ## Step 3: Database Setup
 
-### If using Local PostgreSQL:
+### If using Local MongoDB:
+
+1. **Install MongoDB locally** or use MongoDB Compass
+2. **Start MongoDB service** (if using local installation):
+   ```bash
+   # On Windows (as Administrator)
+   net start MongoDB
+
+   # On macOS/Linux
+   brew services start mongodb/brew/mongodb-community
+   # or
+   sudo systemctl start mongod
+   ```
+3. **Verify connection** using the test script:
+   ```bash
+   node test-mongo.js
+   ```
+
+### If using MongoDB Atlas (Cloud):
+
+1. Go to [MongoDB Atlas](https://cloud.mongodb.com)
+2. Create a cluster (if not already created)
+3. Go to Database Access → Create a database user
+4. Go to Network Access → Add your IP address (or 0.0.0.0/0 for all)
+5. Go to Clusters → Connect → Connect your application
+6. Copy the connection string and replace `<password>` with your database user password
+7. Update your `.env.local` or `.env.production` file
+
+### Test Database Connection:
 
 ```bash
-# Create database
-createdb tradevastu_db
+# Test local MongoDB connection
+node test-mongo.js
 
-# Or using psql
-psql -U postgres
-# In psql console:
-# CREATE DATABASE tradevastu_db;
-# \q
+# Test with custom environment
+MONGODB_URL="your-connection-string" DB_NAME="your-db-name" node test-mongo.js
 ```
-
-### If using Replit Database:
-
-1. Go to Replit project → Secrets tab
-2. Copy the `DATABASE_URL` value
-3. Paste it in your `.env.local` file
-
-### Sync Database Schema:
-
-```bash
-npm run db:push
-```
-
-This will create all tables (services, portfolio_items, testimonials, contact_messages, etc.)
 
 ## Step 4: Run the Development Server
 
@@ -99,9 +112,9 @@ You should see:
 ## Troubleshooting
 
 ### Error: Cannot connect to database
-- **Check**: DATABASE_URL is correct in `.env.local`
-- **Check**: PostgreSQL service is running (`sudo service postgresql start` on Linux)
-- **Check**: Port 5432 is not blocked by firewall
+- **Check**: MONGODB_URL is correct in `.env.local`
+- **Check**: MongoDB service is running (check MongoDB Compass or run `node test-mongo.js`)
+- **Check**: Port 27017 is not blocked by firewall (for local MongoDB)
 
 ### Error: npm ERR! 404 Not Found
 - Run: `npm install` again
@@ -132,14 +145,11 @@ Output will be in `dist/` folder
 ## Useful Commands
 
 ```bash
-# View database schema
-npm run db:studio
+# Test MongoDB connection
+node test-mongo.js
 
-# Push schema changes to database
-npm run db:push
-
-# Force push (if regular push fails)
-npm run db:push --force
+# Test with custom connection string
+MONGODB_URL="your-connection-string" DB_NAME="your-db-name" node test-mongo.js
 
 # Build for production
 npm run build
@@ -211,6 +221,7 @@ npm run db:push
 
 If you encounter issues:
 1. Check logs in terminal
-2. Verify `.env.local` has correct DATABASE_URL
-3. Ensure `npm install` completed without errors
-4. Try `npm run db:push --force` to resync database
+2. Verify `.env.local` has correct MONGODB_URL
+3. Ensure MongoDB is running (`node test-mongo.js` to test)
+4. Ensure `npm install` completed without errors
+5. Check MongoDB Compass or Atlas dashboard for database status
