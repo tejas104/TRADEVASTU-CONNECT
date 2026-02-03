@@ -1,9 +1,5 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": ".next",
-  "framework": "nextjs",
-  "env": {
-    "MONGODB_URL": "@mongodb_url",
-    "DB_NAME": "tradevastu"
-  }
+  "framework": "nextjs"
 }
